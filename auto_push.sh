@@ -4,8 +4,10 @@ set -x
 
 COUNTER=1
 
+path='${1}'
+
 auto_push() {
-  push_cmd='git push origin master'
+  push_cmd='(cd ${path} && git push origin master)'
   eval $push_cmd
   status=$?
 
@@ -17,7 +19,7 @@ auto_push() {
   elif [ $status -gt 0 ] ; then
 
     echo 'Exec git push  after pull'
-    pull_cmd='git pull origin master'
+    pull_cmd='(cd ${path} && git pull origin master)'
     eval $pull_cmd
 
     (( COUNTER++ ))
